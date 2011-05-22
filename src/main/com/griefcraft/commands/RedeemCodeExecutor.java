@@ -1,11 +1,9 @@
 package com.griefcraft.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.griefcraft.BukkitPlugin;
-import com.griefcraft.PlayerState;
 import com.griefcraft.RedeemCode;
 import com.griefcraft.util.Colors;
 import com.iConomy.iConomy;

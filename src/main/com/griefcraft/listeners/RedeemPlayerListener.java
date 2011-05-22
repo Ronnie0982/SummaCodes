@@ -1,21 +1,16 @@
 package com.griefcraft.listeners;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerListener;
-import org.bukkit.inventory.ItemStack;
 
 import com.griefcraft.BukkitPlugin;
-import com.griefcraft.RedeemCode;
 import com.griefcraft.PlayerState;
 import com.griefcraft.PlayerState.Step;
+import com.griefcraft.RedeemCode;
 import com.griefcraft.util.Colors;
 
 public class RedeemPlayerListener extends PlayerListener {
