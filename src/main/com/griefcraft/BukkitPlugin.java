@@ -200,6 +200,7 @@ public class BukkitPlugin extends JavaPlugin {
 	 */
 	private void registerEvents() {
 		registerEvent(playerListener, Type.PLAYER_CHAT);
+		registerEvent(playerListener, Type.PLAYER_QUIT);
 	}
 
 	/**

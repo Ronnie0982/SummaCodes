@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.griefcraft.BukkitPlugin;
 import com.griefcraft.PlayerState;
@@ -64,6 +65,12 @@ public class RedeemPlayerListener extends PlayerListener {
 	}
 	
 	@Override
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		Player player = event.getPlayer();
+		plugin.removePlayerState(player.getName());
+	}
+	
+	@Override
 	public void onPlayerChat(PlayerChatEvent event) {
 		Player player = event.getPlayer();
 		PlayerState playerState = plugin.getPlayerState(player.getName());
@@ -78,6 +85,14 @@ public class RedeemPlayerListener extends PlayerListener {
 		}
 		
 		String message = event.getMessage().trim();
+		
+		// check for cancelling
+		if(message.equals("cancel")) {
+			plugin.removePlayerState(player.getName());
+			player.sendMessage(Colors.Red + "Cancelled code creation.");
+			event.setCancelled(true);
+			return;
+		}
 		
 		switch(playerState.getStep()) {
 		case CODE_NAME:
