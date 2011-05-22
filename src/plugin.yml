@@ -1,0 +1,14 @@
+name: SummaCodes
+main: com.griefcraft.BukkitPlugin
+version: 1.00
+website: http://griefcraft.com
+author: Hidendra
+database: true
+description: Code redemption
+commands:
+    codes:
+        description: Administration commands for redeemable codes.
+        usage: /<command>
+    redeem:
+        description: Redeem a code
+        usage: /<command> <code>
