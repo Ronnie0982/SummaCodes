@@ -1,20 +1,20 @@
 package com.griefcraft.listeners;
 
-import java.util.Map;
-
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.event.player.PlayerListener;
-import org.bukkit.event.player.PlayerQuitEvent;
-
 import com.griefcraft.BukkitPlugin;
 import com.griefcraft.PlayerState;
 import com.griefcraft.PlayerState.Step;
 import com.griefcraft.RedeemCode;
 import com.griefcraft.util.Colors;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-public class RedeemPlayerListener extends PlayerListener {
+import java.util.Map;
+
+public class RedeemPlayerListener implements Listener {
 
 	/**
 	 * The bukkit plugin
@@ -64,13 +64,13 @@ public class RedeemPlayerListener extends PlayerListener {
 		player.sendMessage(Colors.Green + "Code successfully created.");
 	}
 	
-	@Override
+	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		plugin.removePlayerState(player.getName());
 	}
-	
-	@Override
+
+    @EventHandler
 	public void onPlayerChat(PlayerChatEvent event) {
 		Player player = event.getPlayer();
 		PlayerState playerState = plugin.getPlayerState(player.getName());

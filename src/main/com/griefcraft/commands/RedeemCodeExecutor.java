@@ -1,27 +1,33 @@
 package com.griefcraft.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import com.griefcraft.BukkitPlugin;
+import com.griefcraft.RedeemCode;
+import com.griefcraft.util.Colors;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.RegisteredServiceProvider;
 
-import com.griefcraft.BukkitPlugin;
-import com.griefcraft.RedeemCode;
-import com.griefcraft.util.Colors;
-import com.iConomy.iConomy;
-import com.iConomy.system.Account;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class RedeemCodeExecutor implements CommandExecutor {
 
 	private BukkitPlugin plugin;
+    private Economy economy = null;
 	
 	public RedeemCodeExecutor(BukkitPlugin plugin) {
 		this.plugin = plugin;
+
+        RegisteredServiceProvider<Economy> serviceProvider = plugin.getServer().getServicesManager().getRegistration(Economy.class);
+
+        if (serviceProvider != null) {
+            economy = serviceProvider.getProvider();
+        }
 	}
 	
 	@Override
@@ -110,17 +116,11 @@ public class RedeemCodeExecutor implements CommandExecutor {
 		}
 		
 		// now see about iConomy coins
-		double iConomyCoins = redeemCode.getIConomyCoins();
+		double economyCoins = redeemCode.getIConomyCoins();
 		
-		if(iConomyCoins != 0 && plugin.hasiConomy()) {
-			Account account = iConomy.getAccount(player.getName());
-			
-			if(account == null) {
-				player.sendMessage(Colors.Red + "Your iConomy Bank Account is not valid!");
-			} else {
-				account.getHoldings().add(iConomyCoins);
-				player.sendMessage("Cha-ching! Received " + Colors.Green + iConomy.format(iConomyCoins));
-			}
+		if(economyCoins != 0 && plugin.hasiConomy()) {
+            economy.depositPlayer(player.getName(), economyCoins);
+            player.sendMessage("Cha-ching! Received " + Colors.Green + economy.format(economyCoins));
 		}
 		
 		// They're redeemed! Let's add them to the used list & save
